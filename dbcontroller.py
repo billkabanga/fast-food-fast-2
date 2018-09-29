@@ -32,13 +32,12 @@ class Dbcontroller:
         """
         user_table = "CREATE TABLE IF NOT EXISTS users(usrId serial PRIMARY KEY,\
           username varchar(50), email varchar(100),\
-          contact integer, password varchar(20), role varchar(15))"
+          contact varchar(10), password varchar(20), role varchar(15))"
         orders_table = "CREATE TABLE IF NOT EXISTS orders(orderId serial PRIMARY KEY,\
           item varchar(100), quantity integer, price integer,order_date timestamp,\
           order_status varchar(20), usrId integer, FOREIGN KEY(usrId) REFERENCES users(usrId))"
         menu_table = "CREATE TABLE IF NOT EXISTS menu(menuid serial PRIMARY KEY, item varchar(100),\
-         price integer)"
-
+          price integer)"
         self.cursor.execute(user_table)
         self.cursor.execute(orders_table)
         self.cursor.execute(menu_table)

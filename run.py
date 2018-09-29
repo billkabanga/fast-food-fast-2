@@ -3,10 +3,11 @@ module run
 """
 from api import create_app
 from dbcontroller import Dbcontroller
+from flask import current_app as app
 
-APP = create_app()
+app = create_app()
 
 if __name__ == '__main__':
-    DB_CONNECTION = Dbcontroller(APP.config['DATABASE_URL'])
+    DB_CONNECTION = Dbcontroller(app.config['DATABASE_URL'])
     DB_CONNECTION.create_tables()
-    APP.run()
+    app.run()

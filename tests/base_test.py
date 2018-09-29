@@ -29,3 +29,34 @@ class BaseTest(unittest.TestCase):
         self.app.app_context().push()
         new_db = Dbcontroller(app.config['DATABASE_URL'])
         new_db.create_tables()
+        self.user = {
+            "username": "kabangabill",
+            "email": "tkbillkabanga@gmail.com",
+            "contact": "0784318356",
+            "password": "0123456789",
+            "role": "admin"
+        }
+        self.empty_name = {
+            "username": "       ",
+            "email": "tkbillkabanga@gmail.com",
+            "contact": "0784318356",
+            "password": "0123456789",
+            "role": "admin"
+        }
+        self.invalid_role = {
+            "username": "kabangabill",
+            "email": "tkbillkabanga@gmail.com",
+            "contact": "0784318356",
+            "password": "0123456789",
+            "role": "whoisthis"
+        }
+        self.login = {
+            "username": "kabangabill",
+            "password": "0123456789"
+        }
+    def tearDown(self):
+        """
+        method clears tests database after tests
+        """
+        new_db = Dbcontroller(app.config['DATABASE_URL'])
+        new_db.drop_tables()
