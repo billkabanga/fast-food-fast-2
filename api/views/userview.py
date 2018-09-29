@@ -3,6 +3,8 @@ module userview
 """
 from flask import jsonify, Blueprint, make_response, current_app as app
 from flask_restful import Api, Resource, reqparse
+from flask_jwt_extended import (create_access_token,jwt_required)
+from werkzeug.security import safe_str_cmp
 from api.models.usermodel import Users
 from dbcontroller import Dbcontroller
 
@@ -106,8 +108,9 @@ class LoginUser(Resource):
         response = Users(args['username'], args['email'],\
         args['contact'], args['password'], args['role'])
         user = response.get_user()
-        if user:
-            return make_response(jsonify({'message': 'Logged in successfully'}), 200)
+        if user and safe_str_cmp(user[4], args['password']):
+            access_token = create_access_token(identity=user[0], fresh=True)
+            return make_response(jsonify({'message': 'Logged in successfully', 'access_token': access_token}), 200)
         return make_response(jsonify({'message':'User not found'}), 404)
 
 api.add_resource(RegisterUser, '/auth/signup')
