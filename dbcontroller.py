@@ -52,3 +52,30 @@ class Dbcontroller:
         self.cursor.execute(drop_user_table)
         self.cursor.execute(drop_orders_table)
         self.cursor.execute(drop_menu_table)
+    def post_data(self, query):
+        """
+        method posts data to database.
+        """
+        self.cursor.execute(query)
+        return True
+    def get_data(self, query):
+        """
+        method gets data from database
+        """
+        self.cursor.execute(query)
+        data = self.cursor.fetchone()
+        return data
+    def get_all_data(self, query):
+        """
+        method gets all data from database
+        """
+        self.cursor.execute(query)
+        data = self.cursor.fetchall()
+        return data
+    def delete_data(self, query):
+        """
+        method deletes data from database
+        """
+        self.cursor.execute(query)
+        return True
+    
