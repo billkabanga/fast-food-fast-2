@@ -25,6 +25,20 @@ class Menu:
          RETURNING menuid".format(self.item, self.price)
         new_db = Dbcontroller(app.config['DATABASE_URL'])
         return new_db.post_data(query)
+    @classmethod
+    def get_menu(cls):
+        query = "SELECT * FROM menu"
+        new_db = Dbcontroller(app.config['DATABASE_URL'])
+        menu = new_db.get_all_data(query)
+        response = []
+        for item in menu:
+            orders = {}
+            orders['menuid'] = item[0]
+            orders['item'] = item[1]
+            orders['price'] = item[2]
+        
+            response.append(orders)
+        return response
     @staticmethod
     def validate_food_input(item):
         """

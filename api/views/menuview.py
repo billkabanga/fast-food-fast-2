@@ -52,5 +52,10 @@ class MenuHandler(Resource):
                     return make_response(jsonify({'message':'Food option added successfuly'}), 201)
             return valid_data
         return make_response(jsonify({'message':'Transaction available to only admin user'}), 400)
+    def get(self):
+        result = Menu.get_menu()
+        if result:
+            return result
+        return make_response(jsonify({'message':'No available food items'}), 404)
 
 api.add_resource(MenuHandler, '/menu')
