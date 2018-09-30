@@ -47,6 +47,10 @@ class OrderHandler(Resource):
                     return make_response(jsonify({'message':'Order placed successfully'}), 201)
             return valid_data
         return make_response(jsonify({'message':'Transaction available to only client user'}), 400)
+class OrdersGetter(Resource):
+    """
+    class for getting all orders
+    """
     @jwt_required
     def get(self):
         """
@@ -59,6 +63,24 @@ class OrderHandler(Resource):
             if result:
                 return result
             return make_response(jsonify({'message':'No orders found'}), 404)
-        return make_response(jsonify({'message':'Transaction available to only client user'}), 400)
+        return make_response(jsonify({'message':'Transaction available to only admin user'}), 400)
+
+class SpecificOrder(Resource):
+    """
+    class handles request methods for specific order
+    """
+    @jwt_required
+    def get(self, orderId):
+        logged_in = get_jwt_identity()
+        admin = Users.get_admin(logged_in)
+        if logged_in and admin:
+            result = Orders.get_specific_order(orderId)
+            if result:
+                return result
+            return make_response(jsonify({'message':'Order not found'}), 404)
+        return make_response(jsonify({'message':'Transaction available to only admin user'}), 400)
+
 
 api.add_resource(OrderHandler, '/users/orders')
+api.add_resource(OrdersGetter, '/orders')
+api.add_resource(SpecificOrder, '/orders/<int:orderId>')

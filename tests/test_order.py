@@ -94,7 +94,7 @@ class OrderTest(BaseTest):
             response = client.post(BASE_URL+'/auth/login', json=dict(self.login))
             response_data = json.loads(response.data.decode())
             test_response = client.get(
-                BASE_URL+'/users/orders',
+                BASE_URL+'/orders',
                 headers={'Authorization': 'Bearer '+ response_data['access_token']})
             self.assertEqual(test_response.status_code, 200)
     def test_no_orders(self):
@@ -111,7 +111,7 @@ class OrderTest(BaseTest):
                 headers={'Authorization': 'Bearer '+ response_data['access_token']},
                 json=dict(self.order))
             test_response = client.get(
-                BASE_URL+'/users/orders',
+                BASE_URL+'/orders',
                 headers={'Authorization': 'Bearer '+ response_data['access_token']})
             self.assertEqual(test_response.status_code, 404)
     def test_client_not_get_orders(self):
@@ -135,6 +135,68 @@ class OrderTest(BaseTest):
                 headers={'Authorization': 'Bearer '+ response_data['access_token']},
                 json=dict(self.order_input))
             test_response = client.get(
-                BASE_URL+'/users/orders',
+                BASE_URL+'/orders',
                 headers={'Authorization': 'Bearer '+ response_data['access_token']})
             self.assertEqual(test_response.status_code, 400)
+    def test_get_specific_order(self):
+        """
+        method tests get specific order endpoint
+        asserts response status code is 200
+        """
+        with self.client as client:
+            client.post(BASE_URL+'/auth/signup', json=dict(self.user))
+            response = client.post(BASE_URL+'/auth/login', json=dict(self.login))
+            response_data = json.loads(response.data.decode())
+            client.post(
+                BASE_URL+'/menu',
+                headers={'Authorization': 'Bearer '+ response_data['access_token']},
+                json=dict(self.order))
+            client.post(BASE_URL+'/auth/signup', json=dict(self.client_user))
+            response = client.post(BASE_URL+'/auth/login', json=dict(self.login_client))
+            response_data = json.loads(response.data.decode())
+            client.post(
+                BASE_URL+'/users/orders',
+                headers={'Authorization': 'Bearer '+ response_data['access_token']},
+                json=dict(self.order_input))
+            client.post(
+                BASE_URL+'/users/orders',
+                headers={'Authorization': 'Bearer '+ response_data['access_token']},
+                json=dict(self.order_input))
+            client.post(BASE_URL+'/auth/signup', json=dict(self.user))
+            response = client.post(BASE_URL+'/auth/login', json=dict(self.login))
+            response_data = json.loads(response.data.decode())
+            test_response = client.get(
+                BASE_URL+'/orders/2',
+                headers={'Authorization': 'Bearer '+ response_data['access_token']})
+            self.assertEqual(test_response.status_code, 200)
+    def test_specific_order_not_found(self):
+        """
+        method tests get specific order endpoint where order is not found
+        asserts response status code is 404
+        """
+        with self.client as client:
+            client.post(BASE_URL+'/auth/signup', json=dict(self.user))
+            response = client.post(BASE_URL+'/auth/login', json=dict(self.login))
+            response_data = json.loads(response.data.decode())
+            client.post(
+                BASE_URL+'/menu',
+                headers={'Authorization': 'Bearer '+ response_data['access_token']},
+                json=dict(self.order))
+            client.post(BASE_URL+'/auth/signup', json=dict(self.client_user))
+            response = client.post(BASE_URL+'/auth/login', json=dict(self.login_client))
+            response_data = json.loads(response.data.decode())
+            client.post(
+                BASE_URL+'/users/orders',
+                headers={'Authorization': 'Bearer '+ response_data['access_token']},
+                json=dict(self.order_input))
+            client.post(
+                BASE_URL+'/users/orders',
+                headers={'Authorization': 'Bearer '+ response_data['access_token']},
+                json=dict(self.order_input))
+            client.post(BASE_URL+'/auth/signup', json=dict(self.user))
+            response = client.post(BASE_URL+'/auth/login', json=dict(self.login))
+            response_data = json.loads(response.data.decode())
+            test_response = client.get(
+                BASE_URL+'/orders/100',
+                headers={'Authorization': 'Bearer '+ response_data['access_token']})
+            self.assertEqual(test_response.status_code, 404)

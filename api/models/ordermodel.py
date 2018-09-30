@@ -59,6 +59,25 @@ class Orders:
             odrs['client'] = order[6]
             response.append(odrs)
         return response
+    @classmethod
+    def get_specific_order(self, orderId):
+        """
+        method for fetching orders from database
+        """
+        query = "SELECT * FROM orders where orderid = '{}'".format(orderId)
+        new_db = Dbcontroller(app.config['DATABASE_URL'])
+        order = new_db.get_data(query)
+        if order:
+            odr = {}
+            odr['orderid'] = order[0]
+            odr['item'] = order[1]
+            odr['quantity'] = order[2]
+            odr['price'] = order[3]
+            odr['order_date'] = json.dumps(order[4], default=datetime_converter)
+            odr['order_status'] = order[5]
+            odr['client'] = order[6]
+            return jsonify({'odr': odr})
+        return make_response(jsonify({'message': 'Order not found'}), 404)
     @staticmethod
     def validate_order(order_item):
         """
