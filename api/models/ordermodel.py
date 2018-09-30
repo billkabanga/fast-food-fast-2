@@ -1,15 +1,24 @@
 """
 module ordermodel
 """
+import json
 import datetime
 from flask import current_app as app, jsonify, make_response
 from dbcontroller import Dbcontroller
 
+def datetime_converter(order_date):
+    """
+    function converts date to string
+    """
+    if isinstance(order_date, datetime.datetime):
+        return order_date.__str__()
+    raise TypeError("Unknown type not Json serializable")
 class Orders:
     """
     class for orders data
     """
     def __init__(self, item, quantity, price, client):
+        
         self.item = item
         self.quantity = quantity
         self.price = price
@@ -30,6 +39,26 @@ class Orders:
             self.client)
         new_db = Dbcontroller(app.config['DATABASE_URL'])
         return new_db.post_data(query)
+    @classmethod
+    def get_orders(cls):
+        """
+        method for fetching orders from database
+        """
+        query = "SELECT * FROM orders"
+        new_db = Dbcontroller(app.config['DATABASE_URL'])
+        orders = new_db.get_all_data(query)
+        response = []
+        for order in orders:
+            odrs = {}
+            odrs['orderid'] = order[0]
+            odrs['item'] = order[1]
+            odrs['quantity'] = order[2]
+            odrs['price'] = order[3]
+            odrs['order_date'] = json.dumps(order[4], default=datetime_converter)
+            odrs['order_status'] = order[5]
+            odrs['client'] = order[6]
+            response.append(odrs)
+        return response
     @staticmethod
     def validate_order(order_item):
         """

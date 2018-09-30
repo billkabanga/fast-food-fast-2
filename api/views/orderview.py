@@ -47,5 +47,18 @@ class OrderHandler(Resource):
                     return make_response(jsonify({'message':'Order placed successfully'}), 201)
             return valid_data
         return make_response(jsonify({'message':'Transaction available to only client user'}), 400)
+    @jwt_required
+    def get(self):
+        """
+        get request method for all orders
+        """
+        logged_in = get_jwt_identity()
+        admin = Users.get_admin(logged_in)
+        if logged_in and admin:
+            result = Orders.get_orders()
+            if result:
+                return result
+            return make_response(jsonify({'message':'No orders found'}), 404)
+        return make_response(jsonify({'message':'Transaction available to only client user'}), 400)
 
 api.add_resource(OrderHandler, '/users/orders')
