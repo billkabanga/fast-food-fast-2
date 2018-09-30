@@ -36,6 +36,13 @@ class BaseTest(unittest.TestCase):
             "password": "0123456789",
             "role": "admin"
         }
+        self.client_user = {
+            "username": "james",
+            "email": "james@gmail.com",
+            "contact": "0784318356",
+            "password": "0123456789",
+            "role": "client"
+        }
         self.empty_name = {
             "username": "       ",
             "email": "tkbillkabanga@gmail.com",
@@ -53,6 +60,22 @@ class BaseTest(unittest.TestCase):
         self.login = {
             "username": "kabangabill",
             "password": "0123456789"
+        }
+        self.login_client = {
+            "username": "james",
+            "password": "0123456789"
+        }
+        self.order = {
+            "item": "chicken",
+            "price": "15000"
+        }
+        self.empty_item = {
+            "item": "     ",
+            "price": "15000"
+        }
+        self.invalid_item = {
+            "item": "89798**-",
+            "price": "5000"
         }
     def tearDown(self):
         """

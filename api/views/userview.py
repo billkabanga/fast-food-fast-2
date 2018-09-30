@@ -109,7 +109,7 @@ class LoginUser(Resource):
         args['contact'], args['password'], args['role'])
         user = response.get_user()
         if user and safe_str_cmp(user[4], args['password']):
-            access_token = create_access_token(identity=user[0], fresh=True)
+            access_token = create_access_token(identity=user[1], fresh=True)
             return make_response(jsonify({'message': 'Logged in successfully', 'access_token': access_token}), 200)
         return make_response(jsonify({'message':'User not found'}), 404)
 

@@ -35,6 +35,14 @@ class Users:
         new_db = Dbcontroller(app.config['DATABASE_URL'])
         return new_db.get_data(query)
     @staticmethod
+    def get_admin(username):
+        """
+        method gets admin user from database
+        """
+        query = "SELECT * FROM users WHERE username = '{}' AND role = 'admin'".format(username)
+        new_db = Dbcontroller(app.config['DATABASE_URL'])
+        return new_db.get_data(query)
+    @staticmethod
     def validate_user_reg(username, email, contact, password, role):
         """
         method validates user attributes at registration
@@ -42,7 +50,7 @@ class Users:
         roles = ("admin", "client")
         if username.strip() == '':
             return make_response(jsonify({'message': 'Username cannot be empty'}), 400)
-        if not re.match(r"^[a-zA-Z ]+$", username):
+        if not re.match(r"^[a-zA-Z]+$", username):
             return make_response(jsonify({'message': 'Username should only have letters'}), 400)
         if not re.match(r"([\w\.-]+)@([\w\.-]+)(\.[\w\.-]+$)", email):
             return make_response(jsonify({'message':'wrong email entry'}), 400)
