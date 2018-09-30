@@ -53,6 +53,9 @@ class MenuHandler(Resource):
             return valid_data
         return make_response(jsonify({'message':'Transaction available to only admin user'}), 400)
     def get(self):
+        """
+        get method for available menu
+        """
         result = Menu.get_menu()
         if result:
             return result

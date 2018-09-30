@@ -13,7 +13,7 @@ class Menu:
         """
         constructor method for menu class
         :param item:
-        :para price:
+        :param price:
         """
         self.item = item
         self.price = price
@@ -27,6 +27,9 @@ class Menu:
         return new_db.post_data(query)
     @classmethod
     def get_menu(cls):
+        """
+        method for fetching menu items from database
+        """
         query = "SELECT * FROM menu"
         new_db = Dbcontroller(app.config['DATABASE_URL'])
         menu = new_db.get_all_data(query)
@@ -36,7 +39,6 @@ class Menu:
             orders['menuid'] = item[0]
             orders['item'] = item[1]
             orders['price'] = item[2]
-        
             response.append(orders)
         return response
     @staticmethod

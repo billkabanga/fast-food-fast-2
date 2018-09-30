@@ -77,6 +77,14 @@ class BaseTest(unittest.TestCase):
             "item": "89798**-",
             "price": "5000"
         }
+        self.order_input = {
+            "item": "chicken",
+            "quantity": "2"
+        }
+        self.new_item = {
+            "item": "fish",
+            "quantity": "2"
+        }
     def tearDown(self):
         """
         method clears tests database after tests

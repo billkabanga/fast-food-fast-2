@@ -35,7 +35,7 @@ class Dbcontroller:
           contact varchar(10), password varchar(20), role varchar(15))"
         orders_table = "CREATE TABLE IF NOT EXISTS orders(orderId serial PRIMARY KEY,\
           item varchar(100), quantity integer, price integer,order_date timestamp,\
-          order_status varchar(20), usrId integer, FOREIGN KEY(usrId) REFERENCES users(usrId))"
+          order_status varchar(20), client varchar(50))"
         menu_table = "CREATE TABLE IF NOT EXISTS menu(menuid serial PRIMARY KEY, item varchar(100),\
           price integer)"
         self.cursor.execute(user_table)

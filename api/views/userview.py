@@ -57,7 +57,7 @@ class RegisterUser(Resource):
             name = args['username'].strip()
             response = Users(name, args['email'],\
             args['contact'], args['password'], args['role'])
-            query = "SELECT * FROM users WHERE email= '{}'".format(args['email'])
+            query = "SELECT * FROM users WHERE username = '{}' OR email= '{}'".format(args['username'],args['email'])
             new_db = Dbcontroller(app.config['DATABASE_URL'])
             exist = new_db.get_data(query)
             if exist:
