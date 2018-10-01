@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/billkabanga/fast-food-fast-2.svg?branch=ft-challenge-three-160814023)](https://travis-ci.org/billkabanga/fast-food-fast-2)
+[![Coverage Status](https://coveralls.io/repos/github/billkabanga/fast-food-fast-2/badge.svg?branch=ft-challenge-three-160814023)](https://coveralls.io/github/billkabanga/fast-food-fast-2?branch=ft-challenge-three-160814023)
 
 # Fast-food-fast
 This is a food delivery service app for a restaurant. An app where customers can place orders for food and get served instantly.
