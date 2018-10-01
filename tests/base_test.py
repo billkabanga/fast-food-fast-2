@@ -4,7 +4,7 @@ module base_test
 import unittest
 from flask import current_app as app
 from api import create_app
-from dbcontroller import Dbcontroller
+from api.models.dbcontroller import Dbcontroller
 from config import TestingConfig
 
 class BaseTest(unittest.TestCase):
@@ -29,62 +29,7 @@ class BaseTest(unittest.TestCase):
         self.app.app_context().push()
         new_db = Dbcontroller(app.config['DATABASE_URL'])
         new_db.create_tables()
-        self.user = {
-            "username": "kabangabill",
-            "email": "tkbillkabanga@gmail.com",
-            "contact": "0784318356",
-            "password": "0123456789",
-            "role": "admin"
-        }
-        self.client_user = {
-            "username": "james",
-            "email": "james@gmail.com",
-            "contact": "0784318356",
-            "password": "0123456789",
-            "role": "client"
-        }
-        self.empty_name = {
-            "username": "       ",
-            "email": "tkbillkabanga@gmail.com",
-            "contact": "0784318356",
-            "password": "0123456789",
-            "role": "admin"
-        }
-        self.invalid_role = {
-            "username": "kabangabill",
-            "email": "tkbillkabanga@gmail.com",
-            "contact": "0784318356",
-            "password": "0123456789",
-            "role": "whoisthis"
-        }
-        self.login = {
-            "username": "kabangabill",
-            "password": "0123456789"
-        }
-        self.login_client = {
-            "username": "james",
-            "password": "0123456789"
-        }
-        self.order = {
-            "item": "chicken",
-            "price": "15000"
-        }
-        self.empty_item = {
-            "item": "     ",
-            "price": "15000"
-        }
-        self.invalid_item = {
-            "item": "89798**-",
-            "price": "5000"
-        }
-        self.order_input = {
-            "item": "chicken",
-            "quantity": "2"
-        }
-        self.new_item = {
-            "item": "fish",
-            "quantity": "2"
-        }
+        
     def tearDown(self):
         """
         method clears tests database after tests

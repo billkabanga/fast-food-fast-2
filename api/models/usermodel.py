@@ -3,7 +3,7 @@ module usermodel
 """
 import re
 from flask import make_response, jsonify, current_app as app
-from dbcontroller import Dbcontroller
+from .dbcontroller import Dbcontroller
 
 class Users:
     """

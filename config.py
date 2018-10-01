@@ -20,11 +20,3 @@ class TestingConfig(Config):
     DEBUG = True
     TESTING = True
     DATABASE_URL = 'postgres://postgres:focus2red@localhost:5432/fastfoodtestdb'
-
-class ProductionConfig(Config):
-    """
-    class for production configuration
-    """
-    DEBUG = False
-    TESTING = False
-    

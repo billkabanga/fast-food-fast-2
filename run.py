@@ -2,7 +2,7 @@
 module run
 """
 from api import create_app
-from dbcontroller import Dbcontroller
+from api.models.dbcontroller import Dbcontroller
 from flask import current_app as app
 
 app = create_app()

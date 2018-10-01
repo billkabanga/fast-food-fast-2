@@ -3,8 +3,8 @@ module ordermodel
 """
 import json
 import datetime
-from flask import current_app as app, jsonify, make_response
-from dbcontroller import Dbcontroller
+from flask import jsonify, make_response, current_app as app
+from api.models.dbcontroller import Dbcontroller
 
 def datetime_converter(order_date):
     """

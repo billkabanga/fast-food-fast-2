@@ -3,7 +3,7 @@ module menumodel
 """
 import re
 from flask import current_app as app, make_response, jsonify
-from dbcontroller import Dbcontroller
+from .dbcontroller import Dbcontroller
 
 class Menu:
     """

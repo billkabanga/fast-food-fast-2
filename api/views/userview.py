@@ -6,7 +6,7 @@ from flask_restful import Api, Resource, reqparse
 from flask_jwt_extended import (create_access_token,jwt_required)
 from werkzeug.security import safe_str_cmp
 from api.models.usermodel import Users
-from dbcontroller import Dbcontroller
+from api.models.dbcontroller import Dbcontroller
 
 user_blue_print = Blueprint('users_bp', __name__, url_prefix='/api/v1')
 api = Api(user_blue_print)

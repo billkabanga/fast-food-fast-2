@@ -4,7 +4,7 @@ module menuview
 from flask import Blueprint, jsonify, make_response, current_app as app
 from flask_restful import Api, Resource, reqparse
 from flask_jwt_extended import (jwt_required, get_jwt_identity)
-from dbcontroller import Dbcontroller
+from api.models.dbcontroller import Dbcontroller
 from api.models.usermodel import Users
 from api.models.menumodel import Menu
 
