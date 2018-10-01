@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/billkabanga/fast-food-fast-2.svg?branch=ft-challenge-three-160814023)](https://travis-ci.org/billkabanga/fast-food-fast-2)
+
 # Fast-food-fast
 This is a food delivery service app for a restaurant. An app where customers can place orders for food and get served instantly.
 
@@ -49,7 +51,7 @@ Run the `run.py` file and test the endpoints in Postman as shown below:
 | /api/v1/orders | GET     | Get all orders | none | admin |
 | /api/v1/orders/<orderId> | GET     | Fetch specific order | order_id(URL) | admin |
 | /api/v1/orders/<orderId> | PUT     | Update status of an order | N/A | admin |
-| /api/v1/menu | GET     | Get available menu | order_id(URL) | client/admin |
+| /api/v1/menu | GET     | Get available menu | none  | client/admin |
 | /api/v1/menu | POST     | Add a meal option to the menu | item,price | admin |
 
 **Running unittests for the API endpoints**
