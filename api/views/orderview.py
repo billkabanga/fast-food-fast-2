@@ -1,5 +1,5 @@
 """
-module menuview
+module orderview
 """
 from flask import Blueprint, jsonify, make_response
 from flask_restful import Api, Resource, reqparse
