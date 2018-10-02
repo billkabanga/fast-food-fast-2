@@ -58,3 +58,9 @@ NEW_ITEM = {
     "item": "fish",
     "quantity": "2"
 }
+ORDER_STATUS = {
+    "order_status": "Processing"
+}
+INVALID_STATUS = {
+    "order_status": "Rejected"
+}

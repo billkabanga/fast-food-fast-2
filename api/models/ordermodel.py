@@ -60,7 +60,7 @@ class Orders:
             response.append(odrs)
         return response
     @classmethod
-    def get_specific_order(self, orderId):
+    def get_specific_order(cls, orderId):
         """
         method for fetching orders from database
         """
@@ -113,3 +113,35 @@ class Orders:
                 cls.price = orders['price'] * quantity
                 return cls.price
             return make_response(jsonify({'message': 'Quantity must be greater than 0'}), 400)
+    @classmethod
+    def update_status(cls, orderId, order_status):
+        """
+        class method updates order_status
+        """
+        order_stat = ("Processing", "Cancelled", 'Complete')
+        order = cls.get_specific_order(orderId)
+        if order_status in order_stat:
+            if order:
+                query = "UPDATE orders SET order_status = '{}' WHERE orderid = '{}'".format(order_status, orderId)
+                new_db = Dbcontroller(app.config['DATABASE_URL'])
+                return new_db.post_data(query)
+        return make_response(jsonify({'message': 'Status can only be Processing, Cancelled, Complete'}), 400)
+    @classmethod
+    def get_order_history(cls, username):
+        """
+        method for fetching order history from database
+        """
+        query = "SELECT * FROM orders WHERE client = '{}'".format(username)
+        new_db = Dbcontroller(app.config['DATABASE_URL'])
+        orders = new_db.get_all_data(query)
+        response = []
+        for order in orders:
+            odrs = {}
+            odrs['orderid'] = order[0]
+            odrs['item'] = order[1]
+            odrs['quantity'] = order[2]
+            odrs['price'] = order[3]
+            odrs['order_date'] = json.dumps(order[4], default=datetime_converter)
+            odrs['order_status'] = order[5]
+            response.append(odrs)
+        return response
