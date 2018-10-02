@@ -16,12 +16,9 @@ class MenuTest(BaseTest):
         test method for adding food item
         asserts response status is 201
         """
-        self.client.post(BASE_URL+'/auth/signup', json=dict(USER))
-        response = self.client.post(BASE_URL+'/auth/login', json=dict(LOGIN))
-        response_data = json.loads(response.data.decode())
         test_response = self.client.post(
             BASE_URL+'/menu',
-            headers={'Authorization': 'Bearer '+ response_data['access_token']},
+            headers={'Authorization': 'Bearer '+ self.login_admin()},
             json=dict(ORDER))
         self.assertEqual(test_response.status_code, 201)
     def test_client_user_not_allowed(self):
@@ -29,12 +26,9 @@ class MenuTest(BaseTest):
         test method for adding food item
         asserts response status is 400
         """
-        self.client.post(BASE_URL+'/auth/signup', json=dict(CLIENT_USER))
-        response = self.client.post(BASE_URL+'/auth/login', json=dict(LOGIN_CLIENT))
-        response_data = json.loads(response.data.decode())
         test_response = self.client.post(
             BASE_URL+'/menu',
-            headers={'Authorization': 'Bearer '+ response_data['access_token']},
+            headers={'Authorization': 'Bearer '+ self.login_client()},
             json=dict(ORDER))
         self.assertEqual(test_response.status_code, 400)
     def test_empty_food_item(self):
@@ -42,12 +36,9 @@ class MenuTest(BaseTest):
         test method for empty food item
         asserts response status is 400
         """
-        self.client.post(BASE_URL+'/auth/signup', json=dict(USER))
-        response = self.client.post(BASE_URL+'/auth/login', json=dict(LOGIN))
-        response_data = json.loads(response.data.decode())
         test_response = self.client.post(
             BASE_URL+'/menu',
-            headers={'Authorization': 'Bearer '+ response_data['access_token']},
+            headers={'Authorization': 'Bearer '+ self.login_admin()},
             json=dict(EMPTY_ITEM))
         self.assertEqual(test_response.status_code, 400)
     def test_ivalid_food(self):
@@ -55,12 +46,9 @@ class MenuTest(BaseTest):
         test method for invalid food input
         asserts response status code is 400
         """
-        self.client.post(BASE_URL+'/auth/signup', json=dict(USER))
-        response = self.client.post(BASE_URL+'/auth/login', json=dict(LOGIN))
-        response_data = json.loads(response.data.decode())
         test_response = self.client.post(
             BASE_URL+'/menu',
-            headers={'Authorization': 'Bearer '+ response_data['access_token']},
+            headers={'Authorization': 'Bearer '+ self.login_admin()},
             json=dict(INVALID_ITEM))
         self.assertEqual(test_response.status_code, 400)
     def test_empty_menu(self):
@@ -75,12 +63,9 @@ class MenuTest(BaseTest):
         test method for getting menu
         asserts response status code is 200
         """
-        self.client.post(BASE_URL+'/auth/signup', json=dict(USER))
-        response = self.client.post(BASE_URL+'/auth/login', json=dict(LOGIN))
-        response_data = json.loads(response.data.decode())
         self.client.post(
             BASE_URL+'/menu',
-            headers={'Authorization': 'Bearer '+ response_data['access_token']},
+            headers={'Authorization': 'Bearer '+ self.login_admin()},
             json=dict(ORDER))
         test_response = self.client.get(BASE_URL+'/menu')
         self.assertEqual(test_response.status_code, 200)
