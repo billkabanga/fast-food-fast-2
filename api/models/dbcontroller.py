@@ -50,7 +50,7 @@ class Dbcontroller:
         drop_menu_table = "DROP TABLE menu cascade"  
         self.cursor.execute(drop_user_table)
         self.cursor.execute(drop_orders_table)
-        self.cursor.execute(drop_menu_table)
+        self.cursor.execute(drop_menu_table) 
     def post_data(self, query):
         """
         method posts data to database.
