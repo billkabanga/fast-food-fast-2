@@ -48,10 +48,10 @@ Run the `run.py` file and test the endpoints in Postman as shown below:
 | api/v1/auth/signup                     | POST          | Register a user          | username,email,contact,password,role   | client/admin |
 | api/v1/auth/login        | POST           | Login a user          | username, password  | client/admin |
 | /api/v1/users/orders        | POST          | Place an order for food          | item,quantity | client |
-| /api/v1/users/orders | GET     | Get the order history of particular user | N/A  | client |
+| /api/v1/users/orders | GET     | Get the order history of particular user | none  | client |
 | /api/v1/orders | GET     | Get all orders | none | admin |
-| /api/v1/orders/<orderId> | GET     | Fetch specific order | order_id(URL) | admin |
-| /api/v1/orders/<orderId> | PUT     | Update status of an order | N/A | admin |
+| /api/v1/orders/<int:orderId> | GET     | Fetch specific order | order_id(URL) | admin |
+| /api/v1/orders/<int:orderId> | PUT     | Update status of an order | order_status | admin |
 | /api/v1/menu | GET     | Get available menu | none  | client/admin |
 | /api/v1/menu | POST     | Add a meal option to the menu | item,price | admin |
 

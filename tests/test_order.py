@@ -194,6 +194,10 @@ class OrderTest(BaseTest):
             headers={'Authorization': 'Bearer '+ response_data['access_token']})
         self.assertEqual(test_response.status_code, 404)
     def test_update_status(self):
+        """
+        method tests put request for updating status
+        asserts response status code is 201
+        """
         self.client.post(BASE_URL+'/auth/signup', json=dict(USER))
         response = self.client.post(BASE_URL+'/auth/login', json=dict(LOGIN))
         response_data = json.loads(response.data.decode())
@@ -221,6 +225,10 @@ class OrderTest(BaseTest):
             json=dict(ORDER_STATUS))
         self.assertEqual(test_response.status_code, 201)
     def test_client_not_update_status(self):
+        """
+        method tests put request where client can't update status
+        asserts response status code is 400
+        """
         self.client.post(BASE_URL+'/auth/signup', json=dict(USER))
         response = self.client.post(BASE_URL+'/auth/login', json=dict(LOGIN))
         response_data = json.loads(response.data.decode())
@@ -245,6 +253,10 @@ class OrderTest(BaseTest):
             json=dict(ORDER_STATUS))
         self.assertEqual(test_response.status_code, 400)
     def test_order_for_status_not_found(self):
+        """
+        method tests put request where order is not found
+        asserts response status code is 404
+        """
         self.client.post(BASE_URL+'/auth/signup', json=dict(USER))
         response = self.client.post(BASE_URL+'/auth/login', json=dict(LOGIN))
         response_data = json.loads(response.data.decode())
@@ -272,6 +284,10 @@ class OrderTest(BaseTest):
             json=dict(ORDER_STATUS))
         self.assertEqual(test_response.status_code, 404)
     def test_invalid_status(self):
+        """
+        method tests put request where input is invalid
+        asserts response status code is 400
+        """
         self.client.post(BASE_URL+'/auth/signup', json=dict(USER))
         response = self.client.post(BASE_URL+'/auth/login', json=dict(LOGIN))
         response_data = json.loads(response.data.decode())
@@ -356,3 +372,4 @@ class OrderTest(BaseTest):
             BASE_URL+'/users/orders',
             headers={'Authorization': 'Bearer '+ response_data['access_token']})
         self.assertEqual(test_response.status_code, 400)
+        
