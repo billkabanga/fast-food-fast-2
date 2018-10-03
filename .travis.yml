@@ -1,0 +1,19 @@
+language: python
+
+python:
+    - "3.6"
+
+services:
+    - postgresql
+
+install:
+    - pip install -r requirements.txt
+
+before_script:
+    - "psql -c 'create database fastfoodtestdb;' -U postgres"
+
+script:
+    - pytest tests --cov=api --cov-report term-missing
+
+after_success:
+    - coveralls
