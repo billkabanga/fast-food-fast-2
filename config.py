@@ -6,7 +6,6 @@ class Config:
     parent config class
     """
     DEBUG = False
-
 class DevelopmentConfig(Config):
     """
     class for development configuration
