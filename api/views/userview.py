@@ -1,12 +1,15 @@
 """
 module userview
 """
-from flask import jsonify, Blueprint, make_response, current_app as app
+from flasgger import swag_from
+from flask import Blueprint
+from flask import current_app as app
+from flask import jsonify, make_response
+from flask_jwt_extended import create_access_token
 from flask_restful import Api, Resource, reqparse
-from flask_jwt_extended import (create_access_token, jwt_required)
 from werkzeug.security import safe_str_cmp
-from api.models.usermodel import Users
 from api.models.dbcontroller import Dbcontroller
+from api.models.usermodel import Users
 
 user_blue_print = Blueprint('users_bp', __name__, url_prefix='/api/v1')
 api = Api(user_blue_print)
@@ -33,6 +36,7 @@ class RegisterUser(Resource):
         self.reqparse.add_argument(
             'role', type=str, required=True, help='role of user not given')
 
+    @swag_from('../docs/signup.yml', methods=['POST'])
     def post(self):
         """
         method for post request
@@ -82,7 +86,8 @@ class LoginUser(Resource):
             'password', type=str, required=True, help='Password not given')
         self.reqparse.add_argument(
             'role', type=str, required=False, help='role of user not given')
-
+    
+    @swag_from('../docs/login.yml', methods=['POST'])
     def post(self):
         """
         method logs in user
