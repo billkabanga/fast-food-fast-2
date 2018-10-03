@@ -1,6 +1,7 @@
 """
 module menuview
 """
+from flasgger import swag_from
 from flask import Blueprint, jsonify, make_response, current_app as app
 from flask_restful import Api, Resource, reqparse
 from flask_jwt_extended import (jwt_required, get_jwt_identity)
@@ -26,8 +27,9 @@ class MenuHandler(Resource):
             'item', type=str, required=True, help='no food item to add')
         self.reqparse.add_argument(
             'price', type=int, required=True, help='Please provide price')
-
+    
     @jwt_required
+    @swag_from('../docs/add_item.yml', methods=['POST'])
     def post(self):
         """
         post request method for new food item
@@ -60,6 +62,7 @@ class MenuHandler(Resource):
                 'message': 'Transaction available to only admin user'
             }), 400)
 
+    @swag_from('../docs/get_menu.yml', methods=['GET'])
     def get(self):
         """
         get method for available menu

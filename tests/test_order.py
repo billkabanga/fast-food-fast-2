@@ -1,10 +1,8 @@
 """
 module test_order
 """
-import json
 from tests.base_test import BaseTest
-from . import (USER, LOGIN, ORDER, CLIENT_USER, LOGIN_CLIENT, NEW_ITEM,
-               ORDER_INPUT, ORDER_STATUS, INVALID_STATUS)
+from . import (ORDER, NEW_ITEM, ORDER_INPUT, ORDER_STATUS, INVALID_STATUS)
 
 BASE_URL = '/api/v1'
 

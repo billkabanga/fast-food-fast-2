@@ -1,0 +1,30 @@
+Login registered user
+---
+tags:
+- Authentication
+description: This is a POST request to login a new user
+
+consumes:
+- application/json
+
+produces:
+- application/json
+
+parameters:
+- in: body
+  name: body
+  description: user login generates access token.
+  required: true
+  schema:
+    id: user
+
+responses: 
+  200:
+    description: Logged in successfully
+
+definitions:
+  user:
+    type: object
+    properties:
+      username: string
+      password: string

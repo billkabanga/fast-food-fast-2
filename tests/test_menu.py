@@ -1,11 +1,9 @@
 """
 module test_menu
 """
-import json
 from tests.base_test import BaseTest
 
-from . import (USER, LOGIN, ORDER, CLIENT_USER, LOGIN_CLIENT, EMPTY_ITEM,
-               INVALID_ITEM)
+from . import (ORDER, EMPTY_ITEM, INVALID_ITEM)
 BASE_URL = '/api/v1'
 
 

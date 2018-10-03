@@ -1,9 +1,9 @@
 """
 module run
 """
+from flask import current_app as app
 from api import create_app
 from api.models.dbcontroller import Dbcontroller
-from flask import current_app as app
 from config import DevelopmentConfig
 
 app = create_app()

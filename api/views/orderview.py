@@ -1,6 +1,7 @@
 """
 module orderview
 """
+from flasgger import swag_from
 from flask import Blueprint, jsonify, make_response
 from flask_restful import Api, Resource, reqparse
 from flask_jwt_extended import (jwt_required, get_jwt_identity)
@@ -30,6 +31,7 @@ class OrderHandler(Resource):
             help='Please provide quantity')
 
     @jwt_required
+    @swag_from('../docs/place_order.yml', methods=['POST'])
     def post(self):
         """
         post request method for new order
@@ -56,6 +58,7 @@ class OrderHandler(Resource):
             }), 400)
 
     @jwt_required
+    @swag_from('../docs/get_history.yml', methods=['GET'])
     def get(self):
         """
         get request method for order history
@@ -79,6 +82,7 @@ class OrdersGetter(Resource):
     """
 
     @jwt_required
+    @swag_from('../docs/get_orders.yml', methods=['GET'])
     def get(self):
         """
         get request method for all orders
@@ -113,6 +117,7 @@ class SpecificOrder(Resource):
             help='please provide order status')
 
     @jwt_required
+    @swag_from('../docs/get_order.yml', methods=['GET'])
     def get(self, orderId):
         """
         method for get request for specific order
@@ -130,6 +135,7 @@ class SpecificOrder(Resource):
             }), 400)
 
     @jwt_required
+    @swag_from('../docs/update_status.yml', methods=['PUT'])
     def put(self, orderId):
         """
         method for put request to update order_status
