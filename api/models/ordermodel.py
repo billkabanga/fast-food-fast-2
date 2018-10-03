@@ -6,6 +6,7 @@ import datetime
 from flask import jsonify, make_response, current_app as app
 from api.models.dbcontroller import Dbcontroller
 
+
 def datetime_converter(order_date):
     """
     function converts date to string
@@ -13,32 +14,34 @@ def datetime_converter(order_date):
     if isinstance(order_date, datetime.datetime):
         return order_date.__str__()
     raise TypeError("Unknown type not Json serializable")
+
+
 class Orders:
     """
     class for orders data
     """
+
     def __init__(self, item, quantity, price, client):
-        
+
         self.item = item
         self.quantity = quantity
         self.price = price
-        self.order_date = datetime.datetime.now().strftime("%A, %d %B %Y %I:%M%p")
+        self.order_date = datetime.datetime.now().strftime(
+            "%A, %d %B %Y %I:%M%p")
         self.order_status = 'New'
         self.client = client
+
     def add_order(self):
         """
         method adds new order to orders
         """
         query = "INSERT INTO orders(item, quantity, price, order_date, order_status, client)\
         VALUES('{}','{}','{}','{}','{}','{}')".format(
-            self.item,
-            self.quantity,
-            self.price,
-            self.order_date,
-            self.order_status,
-            self.client)
+            self.item, self.quantity, self.price, self.order_date,
+            self.order_status, self.client)
         new_db = Dbcontroller(app.config['DATABASE_URL'])
         return new_db.post_data(query)
+
     @classmethod
     def get_orders(cls):
         """
@@ -54,11 +57,13 @@ class Orders:
             odrs['item'] = order[1]
             odrs['quantity'] = order[2]
             odrs['price'] = order[3]
-            odrs['order_date'] = json.dumps(order[4], default=datetime_converter)
+            odrs['order_date'] = json.dumps(
+                order[4], default=datetime_converter)
             odrs['order_status'] = order[5]
             odrs['client'] = order[6]
             response.append(odrs)
         return response
+
     @classmethod
     def get_specific_order(cls, orderId):
         """
@@ -73,11 +78,13 @@ class Orders:
             odr['item'] = order[1]
             odr['quantity'] = order[2]
             odr['price'] = order[3]
-            odr['order_date'] = json.dumps(order[4], default=datetime_converter)
+            odr['order_date'] = json.dumps(
+                order[4], default=datetime_converter)
             odr['order_status'] = order[5]
             odr['client'] = order[6]
             return jsonify({'odr': odr})
         return make_response(jsonify({'message': 'Order not found'}), 404)
+
     @staticmethod
     def validate_order(order_item):
         """
@@ -94,8 +101,15 @@ class Orders:
             orders['price'] = item[2]
             if orders['item'] == order_item:
                 return True
-            return make_response(jsonify({'message': 'Food item not available, check menu'}), 404)
-        return make_response(jsonify({'message': 'Food item not available, check menu'}), 404)
+            return make_response(
+                jsonify({
+                    'message': 'Food item not available, check menu'
+                }), 404)
+        return make_response(
+            jsonify({
+                'message': 'Food item not available, check menu'
+            }), 404)
+
     @classmethod
     def get_price(cls, quantity, order_item):
         """
@@ -112,7 +126,11 @@ class Orders:
             if quantity > 0:
                 cls.price = orders['price'] * quantity
                 return cls.price
-            return make_response(jsonify({'message': 'Quantity must be greater than 0'}), 400)
+            return make_response(
+                jsonify({
+                    'message': 'Quantity must be greater than 0'
+                }), 400)
+
     @classmethod
     def update_status(cls, orderId, order_status):
         """
@@ -122,10 +140,16 @@ class Orders:
         order = cls.get_specific_order(orderId)
         if order_status in order_stat:
             if order:
-                query = "UPDATE orders SET order_status = '{}' WHERE orderid = '{}'".format(order_status, orderId)
+                query = "UPDATE orders SET order_status = '{}' WHERE orderid = '{}'".format(
+                    order_status, orderId)
                 new_db = Dbcontroller(app.config['DATABASE_URL'])
                 return new_db.post_data(query)
-        return make_response(jsonify({'message': 'Status can only be Processing, Cancelled, Complete'}), 400)
+        return make_response(
+            jsonify({
+                'message':
+                'Status can only be Processing, Cancelled, Complete'
+            }), 400)
+
     @classmethod
     def get_order_history(cls, username):
         """
@@ -141,7 +165,8 @@ class Orders:
             odrs['item'] = order[1]
             odrs['quantity'] = order[2]
             odrs['price'] = order[3]
-            odrs['order_date'] = json.dumps(order[4], default=datetime_converter)
+            odrs['order_date'] = json.dumps(
+                order[4], default=datetime_converter)
             odrs['order_status'] = order[5]
             response.append(odrs)
         return response
