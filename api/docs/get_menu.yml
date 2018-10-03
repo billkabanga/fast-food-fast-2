@@ -1,0 +1,9 @@
+Get available menu
+---
+tags:
+- Fast Food Fast Menu
+description: This is a GET request to get available menu.
+
+responses: 
+  200:
+    description: Menu

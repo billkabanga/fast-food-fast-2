@@ -1,0 +1,33 @@
+Register new User
+---
+tags:
+- Authentication
+description: This is a POST request to register a new user
+
+consumes:
+- application/json
+
+produces:
+- application/json
+
+parameters:
+- in: body
+  name: body
+  description: user details to be added to the database
+  required: true
+  schema:
+    id: user
+
+responses: 
+  201:
+    description: new user registered
+
+definitions:
+  user:
+    type: object
+    properties:
+      username: string
+      email: string
+      contact: string
+      password: string
+      role: string

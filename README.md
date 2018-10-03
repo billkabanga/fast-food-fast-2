@@ -28,15 +28,16 @@ You will need the following:
 * Add food option to the menu
 * View the order history for a particular user.
 
-## getting the application on the local machine.
-Clone the remote repository to your local machine using the following command: `git  clone https://github.com/billkabanga/fast-food-fast-2.git`
-You can now access the project on your local machine by pointing to the local repository using `cd` and `code .` if using Visual Studio code will open the code location.
-Create a virtual environment in the local repository using the following code: `python -3 -m venv env`
-Activate the virtual environment: `env/scripts/activate`
+## Getting the application on the local machine.
+* Clone the remote repository to your local machine using the following command: `git  clone https://github.com/billkabanga/fast-food-fast-2.git`
+* Navigate to the local repository using `cd` and `code .` if using Visual Studio code will open the code location.
+* Create a virtual environment in the local repository using the following code: `python -3 -m venv env`
+* Activate the virtual environment: `env/scripts/activate`
 
 ## Installing dependencies.
-To install all the required extensions for project, use the following command: `pip install -r requirements.txt`
-Run the `psql` command interface and create two databases **fastfoodfastdb** and **fastfoodtestdb** using the `CREATE DATABASE {database name}` command.
+* Use the following command: `pip install -r requirements.txt` , to install the dependencies.
+* Run the `psql` command to access the postgreSQL shell interface.
+* Create two databases **fastfoodfastdb** and **fastfoodtestdb** using the `CREATE DATABASE {database name}` command.
 Application should now be up and ready to test.
 
 ## Running tests:
@@ -56,7 +57,7 @@ Run the `run.py` file and test the endpoints in Postman as shown below:
 | /api/v1/menu | POST     | Add a meal option to the menu | item,price | admin |
 
 **Running unittests for the API endpoints**
-Use the `pytest tests --cov=api --cov-report term-missing` command to run the tests and get the coverage report.
+* Use the `pytest tests --cov=api --cov-report term-missing` command to run the tests and get the coverage report.
 
 ## Deployment:
 N/A
