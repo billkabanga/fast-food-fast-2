@@ -61,7 +61,7 @@ Run the `run.py` file and test the endpoints in Postman as shown below:
 * Use the `pytest tests --cov=api --cov-report term-missing` command to run the tests and get the coverage report.
 
 ## Deployment:
-N/A
+Heroku link: ( https://bill-fast.herokuapp.com/apidocs/#/ )
 
 ## Built with:
 **API endpoints**
