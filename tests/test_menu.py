@@ -26,13 +26,13 @@ class MenuTest(BaseTest):
     def test_client_user_not_allowed(self):
         """
         test method for adding food item
-        asserts response status is 400
+        asserts response status is 403
         """
         test_response = self.client.post(
             BASE_URL + '/menu',
             headers={'Authorization': 'Bearer ' + self.login_client()},
             json=dict(ORDER))
-        self.assertEqual(test_response.status_code, 400)
+        self.assertEqual(test_response.status_code, 403)
 
     def test_empty_food_item(self):
         """

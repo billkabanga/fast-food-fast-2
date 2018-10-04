@@ -55,7 +55,7 @@ class OrderHandler(Resource):
         return make_response(
             jsonify({
                 'message': 'Transaction available to only client user'
-            }), 400)
+            }), 403)
 
     @jwt_required
     @swag_from('../docs/get_history.yml', methods=['GET'])
@@ -73,7 +73,7 @@ class OrderHandler(Resource):
         return make_response(
             jsonify({
                 'message': 'Transaction available to only client user'
-            }), 400)
+            }), 403)
 
 
 class OrdersGetter(Resource):
@@ -97,7 +97,7 @@ class OrdersGetter(Resource):
         return make_response(
             jsonify({
                 'message': 'Transaction available to only admin user'
-            }), 400)
+            }), 403)
 
 
 class SpecificOrder(Resource):
@@ -132,7 +132,7 @@ class SpecificOrder(Resource):
         return make_response(
             jsonify({
                 'message': 'Transaction available to only admin user'
-            }), 400)
+            }), 403)
 
     @jwt_required
     @swag_from('../docs/update_status.yml', methods=['PUT'])
@@ -154,7 +154,7 @@ class SpecificOrder(Resource):
         return make_response(
             jsonify({
                 'message': 'Transaction available to only admin user'
-            }), 400)
+            }), 403)
 
 
 api.add_resource(OrderHandler, '/users/orders')

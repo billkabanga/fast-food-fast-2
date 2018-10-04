@@ -45,7 +45,7 @@ class OrderTest(BaseTest):
     def test_admin_not_order(self):
         """
         method tests if admin wont place order
-        asserts response status code is 400
+        asserts response status code is 403
         """
         self.client.post(
             BASE_URL + '/menu',
@@ -55,7 +55,7 @@ class OrderTest(BaseTest):
             BASE_URL + '/users/orders',
             headers={'Authorization': 'Bearer ' + self.login_admin()},
             json=dict(ORDER_INPUT))
-        self.assertEqual(test_response.status_code, 400)
+        self.assertEqual(test_response.status_code, 403)
 
     def test_get_orders(self):
         """
@@ -92,7 +92,7 @@ class OrderTest(BaseTest):
     def test_client_not_get_orders(self):
         """
         method tests get orders endpoint where client can't get all orders
-        asserts response status code is 400
+        asserts response status code is 403
         """
         self.client.post(
             BASE_URL + '/menu',
@@ -105,7 +105,7 @@ class OrderTest(BaseTest):
         test_response = self.client.get(
             BASE_URL + '/orders',
             headers={'Authorization': 'Bearer ' + self.login_client()})
-        self.assertEqual(test_response.status_code, 400)
+        self.assertEqual(test_response.status_code, 403)
 
     def test_get_specific_order(self):
         """
@@ -177,7 +177,7 @@ class OrderTest(BaseTest):
     def test_client_not_update_status(self):
         """
         method tests put request where client can't update status
-        asserts response status code is 400
+        asserts response status code is 403
         """
         self.client.post(
             BASE_URL + '/menu',
@@ -195,7 +195,7 @@ class OrderTest(BaseTest):
             BASE_URL + '/orders/2',
             headers={'Authorization': 'Bearer ' + self.login_client()},
             json=dict(ORDER_STATUS))
-        self.assertEqual(test_response.status_code, 400)
+        self.assertEqual(test_response.status_code, 403)
 
     def test_order_for_status_not_found(self):
         """
@@ -277,8 +277,8 @@ class OrderTest(BaseTest):
 
     def test_admin_order_history(self):
         """
-        method tests get order history endpoint: admin no order history
-        asserts response status code is 400
+        method tests get order history endpoint: admin not order history
+        asserts response status code is 403
         """
         self.client.post(
             BASE_URL + '/menu',
@@ -287,4 +287,4 @@ class OrderTest(BaseTest):
         test_response = self.client.get(
             BASE_URL + '/users/orders',
             headers={'Authorization': 'Bearer ' + self.login_admin()})
-        self.assertEqual(test_response.status_code, 400)
+        self.assertEqual(test_response.status_code, 403)

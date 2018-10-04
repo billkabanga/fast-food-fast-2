@@ -60,7 +60,7 @@ class MenuHandler(Resource):
         return make_response(
             jsonify({
                 'message': 'Transaction available to only admin user'
-            }), 400)
+            }), 403)
 
     @swag_from('../docs/get_menu.yml', methods=['GET'])
     def get(self):
