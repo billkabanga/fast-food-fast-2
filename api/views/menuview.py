@@ -40,7 +40,8 @@ class MenuHandler(Resource):
         valid_data = Menu.validate_food_input(args['item'])
         if logged_in and admin:
             if valid_data == True:
-                response = Menu(args['item'], args['price'])
+                item = args['item'].lower()
+                response = Menu(item, args['price'])
                 query = "SELECT * FROM menu WHERE item = '{}'".format(
                     args['item'])
                 new_db = Dbcontroller(app.config['DATABASE_URL'])

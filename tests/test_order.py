@@ -169,7 +169,7 @@ class OrderTest(BaseTest):
             headers={'Authorization': 'Bearer ' + self.login_client()},
             json=dict(ORDER_INPUT))
         test_response = self.client.put(
-            BASE_URL + '/orders/2',
+            BASE_URL + '/orders/1',
             headers={'Authorization': 'Bearer ' + self.login_admin()},
             json=dict(ORDER_STATUS))
         self.assertEqual(test_response.status_code, 201)
@@ -242,6 +242,22 @@ class OrderTest(BaseTest):
             headers={'Authorization': 'Bearer ' + self.login_admin()},
             json=dict(INVALID_STATUS))
         self.assertEqual(test_response.status_code, 400)
+
+    def test_order_update_not_found(self):
+        """
+        method tests put request for updating status
+        asserts response status code is 404
+        """
+        self.client.post(
+            BASE_URL + '/menu',
+            headers={'Authorization': 'Bearer ' + self.login_admin()},
+            json=dict(ORDER))
+        test_response = self.client.put(
+            BASE_URL + '/orders/20',
+            headers={'Authorization': 'Bearer ' + self.login_admin()},
+            json=dict(ORDER_STATUS))
+        self.assertEqual(test_response.status_code, 404)
+
 
     def test_get_order_history(self):
         """

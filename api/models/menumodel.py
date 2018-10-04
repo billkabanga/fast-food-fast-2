@@ -52,6 +52,14 @@ class Menu:
         method validates food input
         :param item:
         """
+        query = "SELECT item FROM menu WHERE item = '{}'".format(item)
+        new_db = Dbcontroller(app.config['DATABASE_URL'])
+        exist = new_db.get_data(query)
+        if exist:
+            return make_response(
+                jsonify({
+                    'message': 'Item already exists'
+                }), 400)
         if item.strip() == '':
             return make_response(
                 jsonify({

@@ -82,7 +82,8 @@ class Orders:
                 order[4], default=datetime_converter)
             odr['order_status'] = order[5]
             odr['client'] = order[6]
-            return jsonify({'odr': odr})
+            if order[0] == orderId:
+                return jsonify({'odr': odr})
         return make_response(jsonify({'message': 'Order not found'}), 404)
 
     @staticmethod
@@ -130,6 +131,13 @@ class Orders:
                 jsonify({
                     'message': 'Quantity must be greater than 0'
                 }), 400)
+    
+    @classmethod
+    def check_existing_order(cls, orderId):
+        query = "SELECT orderid FROM orders where orderid = '{}'".format(orderId)
+        new_db = Dbcontroller(app.config['DATABASE_URL'])
+        order = new_db.get_data(query)
+        return order
 
     @classmethod
     def update_status(cls, orderId, order_status):
@@ -137,13 +145,19 @@ class Orders:
         class method updates order_status
         """
         order_stat = ("Processing", "Cancelled", 'Complete')
-        order = cls.get_specific_order(orderId)
         if order_status in order_stat:
+            order = cls.check_existing_order(orderId)
             if order:
                 query = "UPDATE orders SET order_status = '{}' WHERE orderid = '{}'".format(
                     order_status, orderId)
                 new_db = Dbcontroller(app.config['DATABASE_URL'])
                 return new_db.post_data(query)
+            return make_response(
+                jsonify({
+                    'message':
+                    'Order of choice not found'
+                }), 404)
+
         return make_response(
             jsonify({
                 'message':
