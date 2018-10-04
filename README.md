@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/billkabanga/fast-food-fast-2.svg?branch=ft-challenge-three-160814023)](https://travis-ci.org/billkabanga/fast-food-fast-2)
 [![Coverage Status](https://coveralls.io/repos/github/billkabanga/fast-food-fast-2/badge.svg?branch=ft-challenge-three-160814023)](https://coveralls.io/github/billkabanga/fast-food-fast-2?branch=ft-challenge-three-160814023)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d9a08a23a8fa423b828e0161229113b0)](https://www.codacy.com/app/billkabanga/fast-food-fast-2?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=billkabanga/fast-food-fast-2&amp;utm_campaign=Badge_Grade)
 
 # Fast-food-fast
 This is a food delivery service app for a restaurant. An app where customers can place orders for food and get served instantly.
