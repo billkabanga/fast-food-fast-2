@@ -24,10 +24,16 @@ class MenuHandler(Resource):
         """
         self.reqparse = reqparse.RequestParser()
         self.reqparse.add_argument(
-            'item', type=str, required=True, help='no food item to add')
+            'item',
+            type=str,
+            required=True,
+            help='no food item to add, provide price as well.')
         self.reqparse.add_argument(
-            'price', type=int, required=True, help='Please provide price')
-    
+            'price',
+            type=int,
+            required=True,
+            help='Please provide price, provide food item as well')
+
     @jwt_required
     @swag_from('../docs/add_item.yml', methods=['POST'])
     def post(self):
@@ -42,15 +48,6 @@ class MenuHandler(Resource):
             if valid_data == True:
                 item = args['item'].lower()
                 response = Menu(item, args['price'])
-                query = "SELECT * FROM menu WHERE item = '{}'".format(
-                    args['item'])
-                new_db = Dbcontroller(app.config['DATABASE_URL'])
-                exist = new_db.get_data(query)
-                if exist:
-                    return make_response(
-                        jsonify({
-                            'message': 'Food option already exists'
-                        }), 400)
                 result = response.add_food()
                 if result:
                     return make_response(

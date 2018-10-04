@@ -26,15 +26,34 @@ class RegisterUser(Resource):
         """
         self.reqparse = reqparse.RequestParser()
         self.reqparse.add_argument(
-            'username', type=str, required=True, help='Username not given')
+            'username',
+            type=str,
+            required=True,
+            help='Username not given, provide email, contact, password and role'
+        )
         self.reqparse.add_argument(
-            'email', type=str, required=True, help='email not given')
+            'email',
+            type=str,
+            required=True,
+            help='Email not given, provide username, contact, password and role'
+        )
         self.reqparse.add_argument(
-            'contact', type=str, required=True, help='Contact not given')
+            'contact',
+            type=str,
+            required=True,
+            help='Contact not given, provide email, username, password and role'
+        )
         self.reqparse.add_argument(
-            'password', type=str, required=True, help='Password not given')
+            'password',
+            type=str,
+            required=True,
+            help='Password not given, provide username, email, contact and role'
+        )
         self.reqparse.add_argument(
-            'role', type=str, required=True, help='role of user not given')
+            'role',
+            type=str,
+            required=True,
+            help='role of user not given, username, email and contact')
 
     @swag_from('../docs/signup.yml', methods=['POST'])
     def post(self):
@@ -77,16 +96,22 @@ class LoginUser(Resource):
         """
         self.reqparse = reqparse.RequestParser()
         self.reqparse.add_argument(
-            'username', type=str, required=True, help='Username not given')
+            'username',
+            type=str,
+            required=True,
+            help='Username not given, provide password as well')
         self.reqparse.add_argument(
             'email', type=str, required=False, help='email not given')
         self.reqparse.add_argument(
             'contact', type=str, required=False, help='Contact not given')
         self.reqparse.add_argument(
-            'password', type=str, required=True, help='Password not given')
+            'password',
+            type=str,
+            required=True,
+            help='Password not given, provide username as well')
         self.reqparse.add_argument(
             'role', type=str, required=False, help='role of user not given')
-    
+
     @swag_from('../docs/login.yml', methods=['POST'])
     def post(self):
         """

@@ -41,7 +41,7 @@ class Dbcontroller:
           item varchar(100), quantity integer, price integer,order_date timestamp,\
           order_status varchar(20), client varchar(50))"
 
-        menu_table = "CREATE TABLE IF NOT EXISTS menu(menuid serial PRIMARY KEY, item varchar(100),\
+        menu_table = "CREATE TABLE IF NOT EXISTS menu(menuid serial PRIMARY KEY, item varchar(100) UNIQUE,\
           price integer)"
 
         self.cursor.execute(user_table)
