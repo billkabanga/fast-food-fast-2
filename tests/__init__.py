@@ -30,37 +30,12 @@ INVALID_ROLE = {
     "password": "0123456789",
     "role": "whoisthis"
 }
-LOGIN = {
-    "username": "kabangabill",
-    "password": "0123456789"
-}
-LOGIN_CLIENT = {
-    "username": "james",
-    "password": "0123456789"
-}
-ORDER = {
-    "item": "chicken",
-    "price": "15000"
-}
-EMPTY_ITEM = {
-    "item": "     ",
-    "price": "15000"
-}
-INVALID_ITEM = {
-    "item": "89798**-",
-    "price": "5000"
-}
-ORDER_INPUT = {
-    "item": "chicken",
-    "quantity": "2"
-}
-NEW_ITEM = {
-    "item": "fish",
-    "quantity": "2"
-}
-ORDER_STATUS = {
-    "order_status": "Processing"
-}
-INVALID_STATUS = {
-    "order_status": "Rejected"
-}
+LOGIN = {"username": "kabangabill", "password": "0123456789"}
+LOGIN_CLIENT = {"username": "james", "password": "0123456789"}
+ORDER = {"item": "chicken", "price": "15000"}
+EMPTY_ITEM = {"item": "     ", "price": "15000"}
+INVALID_ITEM = {"item": "89798**-", "price": "5000"}
+ORDER_INPUT = {"item": "chicken", "quantity": "2"}
+NEW_ITEM = {"item": "fish", "quantity": "2"}
+ORDER_STATUS = {"order_status": "Processing"}
+INVALID_STATUS = {"order_status": "Rejected"}

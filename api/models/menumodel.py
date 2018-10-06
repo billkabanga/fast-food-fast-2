@@ -5,10 +5,12 @@ import re
 from flask import current_app as app, make_response, jsonify
 from .dbcontroller import Dbcontroller
 
+
 class Menu:
     """
     class for menu
     """
+
     def __init__(self, item, price):
         """
         constructor method for menu class
@@ -17,6 +19,7 @@ class Menu:
         """
         self.item = item
         self.price = price
+
     def add_food(self):
         """
         method adds new food option to menu
@@ -25,6 +28,7 @@ class Menu:
          RETURNING menuid".format(self.item, self.price)
         new_db = Dbcontroller(app.config['DATABASE_URL'])
         return new_db.post_data(query)
+
     @classmethod
     def get_menu(cls):
         """
@@ -41,14 +45,29 @@ class Menu:
             orders['price'] = item[2]
             response.append(orders)
         return response
+
     @staticmethod
     def validate_food_input(item):
         """
         method validates food input
         :param item:
         """
+        query = "SELECT item FROM menu WHERE item = '{}'".format(item)
+        new_db = Dbcontroller(app.config['DATABASE_URL'])
+        exist = new_db.get_data(query)
+        if exist:
+            return make_response(
+                jsonify({
+                    'message': 'Item already exists'
+                }), 400)
         if item.strip() == '':
-            return make_response(jsonify({'message': 'Food item cannot be empty'}), 400)
+            return make_response(
+                jsonify({
+                    'message': 'Food item cannot be empty'
+                }), 400)
         if not re.match(r"^[a-zA-Z ]+$", item):
-            return make_response(jsonify({'message': 'Food item should only have letters'}), 400)
+            return make_response(
+                jsonify({
+                    'message': 'Food item should only have letters'
+                }), 400)
         return True

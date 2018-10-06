@@ -1,0 +1,34 @@
+Get specific order
+---
+tags:
+- Fast Food Fast Orders
+description: This is a GET request to get a specific order.
+
+parameters:
+- in: path
+  name: orderId
+  description: order id for specific order
+  required: true
+  type: integer
+  
+- in: header
+  name: Authorization
+  description: authorization header
+  required: true
+  type: string
+  schema:
+  id: bearer
+
+responses: 
+  200:
+    description: Order
+
+security:
+  - JWT:
+      description: Pass in JWT token
+      type: apikey
+      schema: bearer
+      name: Authorization
+      in: header
+      template: "Bearer {apikey}"
+      bearerFormat: JWT

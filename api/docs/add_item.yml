@@ -1,0 +1,36 @@
+Add food option
+---
+tags:
+- Fast Food Fast Menu
+description: This is a POST request to add food option to menu.
+
+parameters:
+- in: header
+  name: Authorization
+  description: authorization header
+  required: true
+  type: string
+  schema:
+  id: bearer
+  
+- name: Add food item
+  in: body
+  name: body
+  description: Admin user should be able to add a food option to menu.
+  required: true
+  schema:
+    id: user
+
+responses: 
+  201:
+    description: Food option added successfully
+
+security:
+  - JWT:
+      description: Pass in JWT token
+      type: apikey
+      schema: bearer
+      name: Authorization
+      in: header
+      template: "Bearer {apikey}"
+      bearerFormat: JWT
