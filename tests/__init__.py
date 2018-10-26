@@ -1,7 +1,6 @@
 """
 module init tests
 """
-
 USER = {
     "username": "kabangabill",
     "email": "tkbillkabanga@gmail.com",

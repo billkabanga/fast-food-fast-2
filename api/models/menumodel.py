@@ -40,7 +40,6 @@ class Menu:
         response = []
         for item in menu:
             orders = {}
-            orders['menuid'] = item[0]
             orders['item'] = item[1]
             orders['price'] = item[2]
             response.append(orders)

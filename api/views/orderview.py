@@ -43,8 +43,9 @@ class OrderHandler(Resource):
         if logged_in and not admin:
             if valid_data == True:
                 price = Orders.get_price(args['quantity'], args['item'])
+                contact = Orders.get_user_contact(logged_in)
                 response = Orders(args['item'], args['quantity'], price,
-                                  logged_in)
+                                  logged_in, contact)
                 result = response.add_order()
                 if result:
                     return make_response(

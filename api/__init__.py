@@ -1,8 +1,10 @@
 """
 module init
 """
+import datetime
 from flask import Flask, make_response, jsonify
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 from config import DevelopmentConfig
 from api.views.userview import user_blue_print
 from api.views.menuview import mn_blue_print
@@ -31,5 +33,7 @@ def create_app():
     app.register_blueprint(order_blue_print)
     app.register_error_handler(404, wrong_url)
     JWTManager(app)
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta( minutes = 120)
+    CORS(app)
     Swagger(app)
     return app

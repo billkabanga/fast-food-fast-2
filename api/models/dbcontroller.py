@@ -39,7 +39,7 @@ class Dbcontroller:
 
         orders_table = "CREATE TABLE IF NOT EXISTS orders(orderId serial PRIMARY KEY,\
           item varchar(100), quantity integer, price integer,order_date timestamp,\
-          order_status varchar(20), client varchar(50))"
+          order_status varchar(20), client varchar(50), contact varchar(10))"
 
         menu_table = "CREATE TABLE IF NOT EXISTS menu(menuid serial PRIMARY KEY, item varchar(100) UNIQUE,\
           price integer)"

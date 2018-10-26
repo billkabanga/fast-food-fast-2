@@ -33,7 +33,7 @@ class MenuHandler(Resource):
             type=int,
             required=True,
             help='Please provide price, provide food item as well')
-
+        
     @jwt_required
     @swag_from('../docs/add_item.yml', methods=['POST'])
     def post(self):

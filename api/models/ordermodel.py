@@ -21,7 +21,7 @@ class Orders:
     class for orders data
     """
 
-    def __init__(self, item, quantity, price, client):
+    def __init__(self, item, quantity, price, client, contact):
 
         self.item = item
         self.quantity = quantity
@@ -30,15 +30,16 @@ class Orders:
             "%A, %d %B %Y %I:%M%p")
         self.order_status = 'New'
         self.client = client
+        self.contact = contact
 
     def add_order(self):
         """
         method adds new order to orders
         """
-        query = "INSERT INTO orders(item, quantity, price, order_date, order_status, client)\
-        VALUES('{}','{}','{}','{}','{}','{}')".format(
+        query = "INSERT INTO orders(item, quantity, price, order_date, order_status, client, contact)\
+        VALUES('{}','{}','{}','{}','{}','{}','{}')".format(
             self.item, self.quantity, self.price, self.order_date,
-            self.order_status, self.client)
+            self.order_status, self.client, self.contact)
         new_db = Dbcontroller(app.config['DATABASE_URL'])
         return new_db.post_data(query)
 
@@ -61,6 +62,7 @@ class Orders:
                 order[4], default=datetime_converter)
             odrs['order_status'] = order[5]
             odrs['client'] = order[6]
+            odrs['contact'] = order[7]
             response.append(odrs)
         return response
 
@@ -82,6 +84,7 @@ class Orders:
                 order[4], default=datetime_converter)
             odr['order_status'] = order[5]
             odr['client'] = order[6]
+            odr['contact'] = order[7]
             if order[0] == orderId:
                 return jsonify({'odr': odr})
         return make_response(jsonify({'message': 'Order not found'}), 404)
@@ -184,3 +187,14 @@ class Orders:
             odrs['order_status'] = order[5]
             response.append(odrs)
         return response
+
+    @classmethod
+    def get_user_contact(cls, username):
+        """
+        method gets client's contact
+        """
+        query = "SELECT * FROM users where username = '{}'".format(username)
+        new_db = Dbcontroller(app.config['DATABASE_URL'])
+        user = new_db.get_all_data(query)
+        for con in user:
+            return con[3]
